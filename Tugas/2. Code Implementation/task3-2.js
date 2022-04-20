@@ -4,32 +4,35 @@ const ArkFood = (harga, voucher, jarak, pajak)=>{
     let biayaPajak = 0;
     let total = 0;
 
-    if(typeof harga !== "number"){
-        return console.log("\nHarga harus berupa number!\n");
+    if(typeof harga !== "number"){                              //Revisi: console.log pada return dihapus
+        return "\nHarga harus berupa number!\n";
     }
     if(typeof jarak !== "number"){
-        return console.log("\nJarak harus berupa number!\n");
+        return "\nJarak harus berupa number!\n";
+    }
+    if(typeof pajak !== "boolean"){                             //Revisi: Penambahan validasi pajak
+        return "\nPajak harus berupa boolean!\n";
     }
     if(voucher !== "ARKAFOOD5" && voucher !== "DITRAKTIRDEMY" && voucher !== null){
-        return console.log("\nVoucher tidak valid\n");
+        return "\nVoucher tidak valid\n";
     }
     if(voucher === "ARKAFOOD5"){
         if(harga<=50*1000){
-            return console.log("\nVoucher tidak dapat digunakan, pesanan belum memenuhi jumlah minimum pembelian\n");
+            return "\nVoucher tidak dapat digunakan, pesanan belum memenuhi jumlah minimum pembelian\n";
         }
         potongan = harga * 50 / 100;
+        if(potongan >= 50 * 1000){                              //Revisi: Potongan dimasukan dengan nested if
+            potongan = 50 * 1000;
+        }
     }
     if(voucher === "DITRAKTIRDEMY"){
         if(harga<=25*1000){
-            return console.log("\nVoucher tidak dapat digunakan, pesanan belum memenuhi jumlah minimum pembelian\n");
+            return "\nVoucher tidak dapat digunakan, pesanan belum memenuhi jumlah minimum pembelian\n";
         }
         potongan = harga * 60 / 100;
-    }
-    if(voucher === "ARKAFOOD5" && potongan >= 50 * 1000){
-        potongan = 50 * 1000;
-    }
-    if(voucher === "DITRAKTIRDEMY" && potongan >= 25 * 1000){
-        potongan = 25 * 1000;
+        if(potongan >= 25 * 1000){                              //Revisi: Potongan dimasukan dengan nested if
+            potongan = 25 * 1000;
+        }
     }
     if(jarak >= 2){
         biayaAntar = ((5 * 1000) + ((Math.ceil(jarak) - 2) * 3 * 1000));
@@ -39,18 +42,20 @@ const ArkFood = (harga, voucher, jarak, pajak)=>{
     }
     total = harga - potongan + biayaAntar + biayaPajak;
 
-    return console.log(`
+    const cetak = `
     Harga = ${harga}
     Potongan = ${potongan}
     Biaya Antar = ${biayaAntar}
     Pajak = ${biayaPajak}
-    Total = ${total}\n`)
+    Total = ${total}\n`
+
+    return cetak;                                                //Revisi: console.log diganti dengan cetak
 }
 
 const harga = 100000;
-const voucher = "ARKAFOOD5";
-// const voucher = "DITRAKTIRDEMY";
-const jarak = 10;
-const pajak = true;
+// const voucher = "ARKAFOOD5";
+const voucher = "DITRAKTIRDEMY";
+const jarak = 3;
+const pajak = false;
 
-ArkFood(harga, voucher, jarak, pajak);
+console.log(ArkFood(harga, voucher, jarak, pajak));

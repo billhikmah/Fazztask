@@ -1,18 +1,17 @@
 const reverse = (input)=>{
-    const words = input.toLowerCase();
-    const wordsLength = words.length;
+    const words = input.toLowerCase();          //Revisi variabel wordsLength dihapuskan
     let container = "";
     let output = "";
 
-    for(i=0; i<wordsLength; i++){
+    for(i=0; i<words.length; i++){
         if(words[i] !== " "){
             container = container + words[i];
+            continue;                           //Revisi penambahan continue
         }
-        if(words[i] === " "){
-            output = " " + container +  output;
-            container = "";
-        }
+        output = " " + container +  output;
+        container = "";
     }
+
     output = container + " " + output;
     return output;
 };

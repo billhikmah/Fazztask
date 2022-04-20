@@ -1,13 +1,11 @@
 const deteksiPalindrom = (input)=>{
     const word = input.toLowerCase();
-    const panjangTeks = word.length;
-    let output = "palindrom";
-    for(i=0; i<panjangTeks; i++){
-        if(word[i] !== word[panjangTeks-1-i]){
-            return output = "bukan palindrom";
+    for(i=0; i<word.length; i++){                   //Revisi panjangTeks dihapus
+        if(word[i] !== word[word.length-1-i]){
+            return "bukan palindrom";
         }
     };
-    return output;
+    return "palindrom";                             //Revisi variabel output
 };
 
 const teks = "Kasur kakak rusak";
